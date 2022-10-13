@@ -13,8 +13,8 @@ function App() {
   return (
     <div className="mt-20">
       <Header/> 
-      <ListadoPaciente/>
       <Formulario/>
+      <ListadoPaciente/>
       <Error/>
       <Paciente/>
     </div>
