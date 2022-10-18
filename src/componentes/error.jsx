@@ -1,8 +1,15 @@
-function Error(){
+function Error({ children }) {
 
-    return(
-        <h2>Error</h2>
+    return (
+        <div className="bg-red-600 text-white text-center uppercase font-bold">
+            {children}
+        </div>
+
+
+
     )
 }
 
 export default Error
+
+
