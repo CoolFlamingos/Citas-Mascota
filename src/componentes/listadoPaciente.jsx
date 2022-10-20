@@ -1,42 +1,27 @@
+import Paciente from "./paciente"
+function ListadoPaciente({pacientes,setPaciente}) {
 
-function ListadoPaciente() {
-
-
-    
     return (
 
-        <div className="md w-1/2 lg:w-3/5 overflow-auto md:h-screen" >
+        <div className="md w-1/2 lg:w-3/5 overflow-auto md:h-screen box-sizzing:border-box" >
             <h2 className="font-black text-3xl text-center">Listado paciente</h2>
             <p className="text-xl mb-10 mt-5 text-center font-bold ">Administra tus {""} <span className="text-indigo-600 font-bold">Pacientes y citas</span></p>
-
-            <div className="mt-5 py-10 rounded-xl bg-slate-300 shadow-md px-5">
-                <p className="font-bold mb-3 text-gray-700">Nombre: <span className="normal-case font-normal">Chocolate</span> </p>
-           
-
-           
-                <p className="font-bold mb-3 text-gray-700"> Propietario: <span className="normal-case font-normal">Andrea</span> </p>
-                
-
-                
-                    <p className="font-bold mb-3 text-gray-700"> Email: <span className="normal-case font-normal">andrea@hotmail.com</span> </p>
-               
-
-                
-                    <p className="font-bold mb-3 text-gray-700"> Fecha de alta: <span className="normal-case font-normal">15/10/2022</span> </p>
-               
-
-               
-                    <p className="font-bold mb-3 text-gray-700"> Sintomas: <span className="normal-case font-normal">Tos</span> </p>
-                
-                    </div>
-
-                </div>
-            )
+            {pacientes.map(paciente => (
+               <Paciente
+                key={paciente.id}
+                setPaciente={setPaciente}
+                paciente={paciente} />))
+            }
+            <> 
+            <h2 className="font-black text-3xl text-center">No hay Pacientes</h2>
+            <p className="text-xl text-center mt-5">Comienza a Agregar Paciente <span className="text-indigo-600 font-bold">Y Apareceran en este Lugar</span></p>
+            </>
+        </div>
+    )
 }
-            export default  ListadoPaciente
+export default ListadoPaciente
 
-    /*
-    mb = margin bottom
-    mt= margin top 
-   
-    */
+/*
+mb = margin bottom
+mt= margin top 
+ <> </> No es un contenedor pero aparta una seccion */

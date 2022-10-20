@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Error from './error';
 
-function Formulario() {
+function Formulario({pacientes,setPacientes,paciente,SetPaciente}) {
 
     const [mascota, setMascota] = useState('');
     const [propietario, setPropietario] = useState('');
@@ -9,15 +9,29 @@ function Formulario() {
     const [alta, setAlta] = useState('');
     const [sintomas, setSintomas] = useState('');
     const [error, setError] = useState(false)
+    const generarId=()=>{
+        const random=Math.random().toString(36)
+        const fecha=Date.now().toString(36)
+        return random+fecha
+    }
 
-    const validarFormulario = ((e) => {
+    const validarFormulario = (e) => {
         e.preventDefault()
         if ([mascota, propietario, email, alta, sintomas].includes('')) {
             console.log('Hay al menos un campo vacio')
             setError(true)
             return
-        }
+        };
         setError(false)
+        const objetoPaciente={mascota,propietario,email,alta,sintomas}
+        
+        if(paciente.id){
+
+        }else{
+            objetoPaciente.id=generarId()
+            setPacientes([...pacientes, objetoPaciente])
+        }
+        
         //------------------- limpiando nuestros input
         setMascota('')
         setPropietario('')
@@ -25,12 +39,12 @@ function Formulario() {
         setAlta('')
         setSintomas('')
 
-    })
+    }
 
     return (
         <div className="md:w-1/2 mx-5 lg:w-2/5">
             <h2 className="text-center font-black text-3xl mb-5">Seguimiento Pacientes</h2>
-            <p className="text-center mt-5 text-lg mb-10">Aniade paciente <span className="text-indigo-600 font-bold">Administrarlos</span></p>
+            <p className="text-center mt-5 text-lg mb-10">Añade paciente <span className="text-indigo-600 font-bold">Administrarlos</span></p>
 
             <form className="bg-indigo-300 py-10 px-8 shadow-md rounded-lg"
                 onSubmit={validarFormulario}>
@@ -63,7 +77,7 @@ function Formulario() {
                     <div>
                         <label className="block text-gray-700 uppercase font-bold">Email</label>
                         <input className="p-2 rounded-md width-full mt-2 placeholder-gray-400"
-                            type="text"
+                            type="email"
                             placeholder="Email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -73,7 +87,7 @@ function Formulario() {
                     <div>
                         <label className="block text-gray-700 uppercase font-bold">Fecha de alta</label>
                         <input className="p-2 rounded-md width-full mt-2 placeholder-gray-400"
-                            type="text"
+                            type="date"
                             placeholder="Fecha de alta"
                             value={alta}
                             onChange={(e) => setAlta(e.target.value)}
@@ -82,8 +96,7 @@ function Formulario() {
 
                     <div>
                         <label className="block text-gray-700 uppercase font-bold">Sintomas</label>
-                        <input className="p-2 rounded-md width-full mt-2 placeholder-gray-400"
-                            type="text"
+                        <textarea className="p-2 rounded-md width-full mt-2 placeholder-gray-400"
                             placeholder="Sintomas"
                             value={sintomas}
                             onChange={(e) => setSintomas(e.target.value)}
@@ -92,7 +105,8 @@ function Formulario() {
 
 
                 </div>
-                <input type="submit" className=" bg-indigo-600 text-white uppercase w-full p-3 mt-5 rounded-md hover:bg-indigo-800 cursor-pointer transition-colors font-bold" />
+                <input type="submit" className=" bg-indigo-600 text-white uppercase w-full p-3 mt-5 rounded-md hover:bg-indigo-800 cursor-pointer transition-colors font-bold" 
+                value={'Agregar Paciente'} />
             </form>
         </div>
     )
@@ -141,6 +155,9 @@ error&&<Error>
 <p>Todos los campos son obligatorios</p>
 </Error>
 
-
+//Props: evitar duplicar codigo y reutilizar las variables props. Nunca se puede pasar info del hijo al padre, hijos son odos los componentes. Cada nivel de los componenetes debe de pasar por ortos componentes
+//numeros={1}
+//izquierdo (nombre) derecho (informacion que voy a comporatir o pasar)
+Gneralmente no se usan cuando hay muchos componenetes (como mas de 15)
 
    */
