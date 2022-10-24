@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Error from './error';
 
-function Formulario({pacientes,setPacientes,paciente,SetPaciente}) {
+function Formulario({ pacientes, setPacientes, paciente, SetPaciente }) {
 
     const [mascota, setMascota] = useState('');
     const [propietario, setPropietario] = useState('');
@@ -9,10 +9,10 @@ function Formulario({pacientes,setPacientes,paciente,SetPaciente}) {
     const [alta, setAlta] = useState('');
     const [sintomas, setSintomas] = useState('');
     const [error, setError] = useState(false)
-    const generarId=()=>{
-        const random=Math.random().toString(36)
-        const fecha=Date.now().toString(36)
-        return random+fecha
+    const generarId = () => {
+        const random = Math.random().toString(36)
+        const fecha = Date.now().toString(36)
+        return random + fecha
     }
 
     const validarFormulario = (e) => {
@@ -23,15 +23,20 @@ function Formulario({pacientes,setPacientes,paciente,SetPaciente}) {
             return
         };
         setError(false)
-        const objetoPaciente={mascota,propietario,email,alta,sintomas}
-        
-        if(paciente.id){
+        const objetoPaciente = { mascota, propietario, email, alta, sintomas }
 
-        }else{
-            objetoPaciente.id=generarId()
+        if (paciente.id) {
+            objetoPaciente.id = paciente.id
+            const pacientesAct = pacientes.map(pacienteState => pacienteState.id===paciente.id ? objetoPaciente:pacienteState)
+            setPacientes(pacientesAct)
+            setPacientes({})
+
+        } else {
+            objetoPaciente.id = generarId()
             setPacientes([...pacientes, objetoPaciente])
+            
         }
-        
+
         //------------------- limpiando nuestros input
         setMascota('')
         setPropietario('')
@@ -50,7 +55,7 @@ function Formulario({pacientes,setPacientes,paciente,SetPaciente}) {
                 onSubmit={validarFormulario}>
                 <div>
                     {
-                        error&&<Error>
+                        error && <Error>
                             <p>Todos los campos son obligatorios</p>
                         </Error>
                     }
@@ -105,8 +110,9 @@ function Formulario({pacientes,setPacientes,paciente,SetPaciente}) {
 
 
                 </div>
-                <input type="submit" className=" bg-indigo-600 text-white uppercase w-full p-3 mt-5 rounded-md hover:bg-indigo-800 cursor-pointer transition-colors font-bold" 
-                value={'Agregar Paciente'} />
+                <input type="submit" className=" bg-indigo-600 text-white uppercase w-full p-3 mt-5 rounded-md hover:bg-indigo-800 cursor-pointer transition-colors font-bold"
+                    value={paciente.id?'editar paciente':'Agregar paciente'}  //Si en el objeto que estoy recibiendo hay un id se pondra editar si no se pondra agregar 
+                    />
             </form>
         </div>
     )

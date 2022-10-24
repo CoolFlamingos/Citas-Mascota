@@ -1,5 +1,5 @@
 function Paciente({ paciente, eliminarPaciente,setPaciente }) {
-    const{mascota,propietario,email,alta,sintomas}=paciente
+    const{mascota,propietario,email,alta,sintomas,id}=paciente
     const eliminarFormulario=()=>{const respuesta=confirm ('Seguro de eliminar al paciente?')
     if(respuesta){
         eliminarPaciente(id)
