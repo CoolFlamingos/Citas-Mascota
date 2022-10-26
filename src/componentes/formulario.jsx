@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Error from './error';
 
-function Formulario({ pacientes, setPacientes, paciente, SetPaciente }) {
+function Formulario({ pacientes, setPacientes, paciente, setPaciente }) {
 
     const [mascota, setMascota] = useState('');
     const [propietario, setPropietario] = useState('');
@@ -9,6 +9,19 @@ function Formulario({ pacientes, setPacientes, paciente, SetPaciente }) {
     const [alta, setAlta] = useState('');
     const [sintomas, setSintomas] = useState('');
     const [error, setError] = useState(false)
+    
+    useEffect(()=>{
+if(Object.keys(paciente).length>0){
+    setMascota(paciente.mascota)
+    setPropietario(paciente.propietario)
+    setEmail(paciente.email)
+    setAlta(paciente.alta)
+    setSintomas(paciente.sintomas)
+}
+    },[paciente])
+
+   
+    
     const generarId = () => {
         const random = Math.random().toString(36)
         const fecha = Date.now().toString(36)
@@ -29,7 +42,7 @@ function Formulario({ pacientes, setPacientes, paciente, SetPaciente }) {
             objetoPaciente.id = paciente.id
             const pacientesAct = pacientes.map(pacienteState => pacienteState.id===paciente.id ? objetoPaciente:pacienteState)
             setPacientes(pacientesAct)
-            setPacientes({})
+            setPaciente({})
 
         } else {
             objetoPaciente.id = generarId()
@@ -166,4 +179,7 @@ error&&<Error>
 //izquierdo (nombre) derecho (informacion que voy a comporatir o pasar)
 Gneralmente no se usan cuando hay muchos componenetes (como mas de 15)
 
-   */
+Use effect dentro del corchete se llama dependencia. Condicion la cual depende mi use effect. El valor que esta cambiando, cuando cambia apciente se efectuara el use effect
+  
+Object.keys: verificar si hay algo en el objeto
+*/
